@@ -27,7 +27,19 @@ cd SecureCodeAssitVScode
 
 ---
 
-## 3. Install Dependencies
+## 3. Install the Included VSIX File (Recommended)
+
+If a prebuilt `.vsix` file (e.g., `secure-coding-assistant-0.0.1.vsix`) is included in the repository or release, you can install it directly without building from source:
+
+1. Open Visual Studio Code.
+2. Go to the Extensions view (`Ctrl+Shift+X`).
+3. Click the `...` (More Actions) menu in the top-right, then select **Install from VSIX...**
+4. Browse to and select the included `.vsix` file.
+5. Wait for the extension to install.
+
+---
+
+## 4. Install Dependencies
 
 Install all required Node.js packages:
 
@@ -37,7 +49,7 @@ npm install
 
 ---
 
-## 4. Build the Extension
+## 5. Build the Extension
 
 Compile the TypeScript source code:
 
@@ -53,7 +65,7 @@ npx tsc -p .
 
 ---
 
-## 5. Package the Extension (Create VSIX)
+## 6. Package the Extension (Create VSIX)
 
 Use the VSCE tool to package the extension into a `.vsix` file:
 
@@ -65,7 +77,7 @@ This will generate a file like `secure-coding-assistant-0.0.1.vsix` in your proj
 
 ---
 
-## 6. Install the Extension in VS Code
+## 7. Install the Extension in VS Code
 
 ### Option A: Install from VSIX File
 1. Open Visual Studio Code.
@@ -82,14 +94,14 @@ This will generate a file like `secure-coding-assistant-0.0.1.vsix` in your proj
 
 ---
 
-## 7. Post-Installation Setup
+## 8. Post-Installation Setup
 
-### 7.1 Set Your LLM Provider
+### 8.1 Set Your LLM Provider
 1. Open Settings (`Ctrl+,`).
 2. Search for `Secure Coding Assistant`.
 3. Set your preferred LLM provider (OpenAI, Anthropic, Google, or Custom).
 
-### 7.2 Add Your API Key
+### 8.2 Add Your API Key
 **You must add an API key for your chosen provider before scanning code.**
 
 #### Using the Command Palette (Recommended)
@@ -106,7 +118,7 @@ This will generate a file like `secure-coding-assistant-0.0.1.vsix` in your proj
 
 ---
 
-## 8. Verifying Installation
+## 9. Verifying Installation
 
 1. Right-click on a code file or selection and choose `Secure Coding: Scan Selection` or `Scan File`.
 2. View results in the `Secure Coding Assistant` output channel.
@@ -114,7 +126,7 @@ This will generate a file like `secure-coding-assistant-0.0.1.vsix` in your proj
 
 ---
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 - **No scan results?**
   - Ensure your API key is set and valid.
@@ -131,7 +143,7 @@ For more help, see the [README](./readme.md) or [COMPREHENSIVE_FILE_SUPPORT.md].
 
 ---
 
-## 10. Uninstallation
+## 11. Uninstallation
 
 1. Go to the Extensions view (`Ctrl+Shift+X`).
 2. Find `Secure Coding Assistant` in the list.
@@ -139,7 +151,7 @@ For more help, see the [README](./readme.md) or [COMPREHENSIVE_FILE_SUPPORT.md].
 
 ---
 
-## 11. Additional Resources
+## 12. Additional Resources
 
 - [Comprehensive File Support](./COMPREHENSIVE_FILE_SUPPORT.md)
 - [API Reference](./API_REFERENCE.md)
