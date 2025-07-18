@@ -1,0 +1,493 @@
+{
+  "name": "secure-coding-assistant",
+  "displayName": "Secure Coding Assistant",
+  "description": "Secure coding assistant that helps identify and fix security vulnerabilities in your code",
+  "version": "0.0.1",
+  "publisher": "security-scripts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contextmedia/security_scripts/tree/main/SecureCodeVSCodePlugin"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:python",
+    "onLanguage:java",
+    "onLanguage:csharp",
+    "onLanguage:cpp",
+    "onLanguage:c",
+    "onLanguage:php",
+    "onLanguage:go",
+    "onLanguage:rust",
+    "onLanguage:ruby",
+    "onLanguage:json",
+    "onLanguage:xml",
+    "onLanguage:yaml",
+    "onLanguage:toml",
+    "workspaceContains:**/package.json",
+    "workspaceContains:**/requirements.txt",
+    "workspaceContains:**/pom.xml",
+    "workspaceContains:**/build.gradle",
+    "workspaceContains:**/Cargo.toml",
+    "workspaceContains:**/composer.json",
+    "workspaceContains:**/Gemfile",
+    "workspaceContains:**/go.mod",
+    "workspaceContains:**/pyproject.toml",
+    "workspaceContains:**/setup.py",
+    "onCommand:secure-coding-assistant.scanSelection",
+    "onCommand:secure-coding-assistant.scanFile",
+    "onCommand:secure-coding-assistant.scanFolder",
+    "onCommand:secure-coding-assistant.generateFix",
+    "onCommand:secure-coding-assistant.showOutputChannel",
+    "onCommand:secure-coding-assistant.addOpenAIApiKey",
+    "onCommand:secure-coding-assistant.removeOpenAIApiKey",
+    "onCommand:secure-coding-assistant.addAnthropicApiKey",
+    "onCommand:secure-coding-assistant.removeAnthropicApiKey",
+    "onCommand:secure-coding-assistant.addGoogleApiKey",
+    "onCommand:secure-coding-assistant.removeGoogleApiKey",
+    "onCommand:secure-coding-assistant.addCustomLlmProvider",
+    "onCommand:secure-coding-assistant.toggleRealTimeScanning"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "secure-coding-assistant.scanSelection",
+        "title": "Secure Coding: Scan Selection"
+      },
+      {
+        "command": "secure-coding-assistant.scanFile",
+        "title": "Secure Coding: Scan File"
+      },
+      {
+        "command": "secure-coding-assistant.scanFolder",
+        "title": "Secure Coding: Scan Folder"
+      },
+      {
+        "command": "secure-coding-assistant.generateFix",
+        "title": "Secure Coding: Generate Fix"
+      },
+      {
+        "command": "secure-coding-assistant.showOutputChannel",
+        "title": "Secure Coding: Show Output Channel"
+      },
+      {
+        "command": "secure-coding-assistant.addOpenAIApiKey",
+        "title": "Secure Coding: Add OpenAI API Key"
+      },
+      {
+        "command": "secure-coding-assistant.removeOpenAIApiKey",
+        "title": "Secure Coding: Remove OpenAI API Key"
+      },
+      {
+        "command": "secure-coding-assistant.addAnthropicApiKey",
+        "title": "Secure Coding: Add Anthropic API Key"
+      },
+      {
+        "command": "secure-coding-assistant.removeAnthropicApiKey",
+        "title": "Secure Coding: Remove Anthropic API Key"
+      },
+      {
+        "command": "secure-coding-assistant.addGoogleApiKey",
+        "title": "Secure Coding: Add Google API Key"
+      },
+      {
+        "command": "secure-coding-assistant.removeGoogleApiKey",
+        "title": "Secure Coding: Remove Google API Key"
+      },
+      {
+        "command": "secure-coding-assistant.addCustomLlmProvider",
+        "title": "Secure Coding: Add Custom LLM Provider"
+      },
+      {
+        "command": "secure-coding-assistant.toggleRealTimeScanning",
+        "title": "Secure Coding: Toggle Real-Time Scanning"
+      },
+      {
+        "command": "secure-coding-assistant.refreshDiagnostics",
+        "title": "Secure Coding: Test Diagnostics (Debug)"
+      },
+      {
+        "command": "secure-coding-assistant.addImmediateDiagnostics",
+        "title": "Secure Coding: Add Test Dots (Force Red Dots)"
+      },
+      {
+        "command": "secure-coding-assistant.toggleAutoShowOutput",
+        "title": "Secure Coding: Toggle Auto-Show Output Window"
+      },
+      {
+        "command": "secure-coding-assistant.adjustScanDelay",
+        "title": "Secure Coding: Adjust Real-Time Scan Delay"
+      },
+      {
+        "command": "secure-coding-assistant.toggleIncrementalScanning",
+        "title": "Secure Coding: Toggle Incremental Scanning Mode"
+      },
+      {
+        "command": "secure-coding-assistant.forceClearScanState",
+        "title": "Secure Coding: Force Clear Scan State (Emergency Reset)"
+      },
+      {
+        "command": "secure-coding-assistant.showScanStatus",
+        "title": "Secure Coding: Show Current Scan Status"
+      },
+      {
+        "command": "secure-coding-assistant.toggleFastMode",
+        "title": "Secure Coding: Toggle Fast Mode (Speed vs Thoroughness)"
+      },
+      {
+        "command": "secure-coding-assistant.toggleComprehensiveFileScanning",
+        "title": "Secure Coding: Toggle Comprehensive File Scanning (All vs Core File Types)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "secure-coding-assistant.scanSelection",
+          "group": "navigation@1"
+        },
+        {
+          "command": "secure-coding-assistant.generateFix",
+          "group": "navigation@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "secure-coding-assistant.scanFile",
+          "group": "navigation@1"
+        },
+        {
+          "command": "secure-coding-assistant.scanFolder",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "secure-coding-assistant.scanFile",
+          "when": "editorLangId"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Secure Coding Assistant",
+      "properties": {
+        "secureCodingAssistant.preferredLlm": {
+          "type": "string",
+          "enum": [
+            "OpenAI",
+            "Anthropic",
+            "Google",
+            "Custom"
+          ],
+          "default": "OpenAI",
+          "description": "Preferred LLM provider for code analysis"
+        },
+        "secureCodingAssistant.openai.model": {
+          "type": "string",
+          "enum": [
+            "gpt-4-turbo-preview",
+            "gpt-4-turbo",
+            "gpt-4",
+            "gpt-4-32k",
+            "gpt-3.5-turbo",
+            "gpt-3.5-turbo-16k",
+            "gpt-3.5-turbo-1106",
+            "gpt-4-1106-preview",
+            "gpt-4-0125-preview",
+            "gpt-4-vision-preview"
+          ],
+          "default": "gpt-4-turbo-preview",
+          "description": "OpenAI model to use for code analysis"
+        },
+        "secureCodingAssistant.openai.systemPrompt": {
+          "type": "string",
+          "default": "You are a helpful assistant that analyzes code for security vulnerabilities. Identify potential vulnerabilities and suggest remedies.",
+          "description": "System prompt for OpenAI"
+        },
+        "secureCodingAssistant.openai.userPrompt": {
+          "type": "string",
+          "default": "Analyze the following code for security vulnerabilities and suggest fixes:",
+          "description": "User prompt for OpenAI"
+        },
+        "secureCodingAssistant.google.model": {
+          "type": "string",
+          "enum": [
+            "gemini-1.5-flash",
+            "gemini-1.5-pro",
+            "gemini-2.5-flash-preview-05-20",
+            "gemini-pro",
+            "gemini-pro-vision",
+            "gemini-1.0-pro"
+          ],
+          "default": "gemini-1.5-flash",
+          "description": "Google Gemini model to use for code analysis"
+        },
+        "secureCodingAssistant.anthropic.model": {
+          "type": "string",
+          "enum": [
+            "claude-3-5-sonnet-20241022",
+            "claude-3-5-sonnet-20240620",
+            "claude-3-5-haiku-20241022",
+            "claude-3-opus-20240229",
+            "claude-3-sonnet-20240229",
+            "claude-3-haiku-20240307",
+            "claude-2.1",
+            "claude-2.0",
+            "claude-instant-1.2"
+          ],
+          "default": "claude-3-5-sonnet-20241022",
+          "description": "Anthropic Claude model to use for code analysis"
+        },
+        "secureCodingAssistant.custom.defaultModel": {
+          "type": "string",
+          "default": "gpt-4-turbo-preview",
+          "description": "Default model name to use for custom LLM providers (e.g., 'llama-2-70b', 'mistral-large', 'gpt-4-turbo-preview')"
+        },
+        "secureCodingAssistant.retry.maxRetries": {
+          "type": "number",
+          "default": 3,
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Maximum number of retries for LLM API calls"
+        },
+        "secureCodingAssistant.retry.baseDelay": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 100,
+          "maximum": 10000,
+          "description": "Base delay in milliseconds for retry backoff"
+        },
+        "secureCodingAssistant.retry.maxDelay": {
+          "type": "number",
+          "default": 10000,
+          "minimum": 1000,
+          "maximum": 60000,
+          "description": "Maximum delay in milliseconds for retry backoff"
+        },
+        "secureCodingAssistant.retry.rateLimitRetries": {
+          "type": "number",
+          "default": 5,
+          "minimum": 0,
+          "maximum": 15,
+          "description": "Maximum number of retries for rate limit errors (429 responses)"
+        },
+        "secureCodingAssistant.retry.rateLimitBaseDelay": {
+          "type": "number",
+          "default": 2000,
+          "minimum": 500,
+          "maximum": 30000,
+          "description": "Base delay in milliseconds for rate limit retry backoff"
+        },
+        "secureCodingAssistant.retry.rateLimitMaxDelay": {
+          "type": "number",
+          "default": 60000,
+          "minimum": 5000,
+          "maximum": 300000,
+          "description": "Maximum delay in milliseconds for rate limit retry backoff"
+        },
+        "secureCodingAssistant.tokens.baseMaxTokens": {
+          "type": "number",
+          "default": 4000,
+          "minimum": 500,
+          "maximum": 128000,
+          "description": "Base maximum tokens for LLM responses"
+        },
+        "secureCodingAssistant.performance.maxConcurrentFixes": {
+          "type": "number",
+          "default": 6,
+          "minimum": 1,
+          "maximum": 15,
+          "description": "Maximum number of fix generation operations to run in parallel"
+        },
+        "secureCodingAssistant.performance.enableBatchProcessing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Group similar vulnerabilities together for faster batch processing"
+        },
+        "secureCodingAssistant.performance.prioritizeHighSeverity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Process high-severity vulnerabilities first for faster user feedback"
+        },
+        "secureCodingAssistant.performance.useOptimizedPrompt": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use shorter, optimized system prompt for faster scanning"
+        },
+        "secureCodingAssistant.performance.enableChunking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Split large files into chunks for better performance"
+        },
+        "secureCodingAssistant.performance.maxChunkSize": {
+          "type": "number",
+          "default": 8000,
+          "minimum": 1000,
+          "maximum": 20000,
+          "description": "Maximum size of code chunks for processing large files"
+        },
+        "secureCodingAssistant.performance.enableScanCaching": {
+          "type": "boolean",
+          "default": true,
+          "description": "Cache scan results to avoid redundant LLM calls"
+        },
+        "secureCodingAssistant.performance.enableFixCaching": {
+          "type": "boolean",
+          "default": true,
+          "description": "Cache fix results to avoid regenerating identical fixes"
+        },
+        "secureCodingAssistant.performance.enableSmartVerification": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use smart verification - skip verification for simple fixes, full verification for complex ones"
+        },
+        "secureCodingAssistant.performance.fastModeEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable fast mode - prioritize speed over thoroughness (reduces verification depth)"
+        },
+        "secureCodingAssistant.performance.preemptiveFixGeneration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate fixes for common vulnerabilities in background during scanning"
+        },
+        "secureCodingAssistant.performance.maxConcurrentScans": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Maximum number of concurrent scanning operations"
+        },
+        "secureCodingAssistant.sourceCodeExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".ts", ".js", ".py", ".java", ".c", ".cpp", ".go", ".rs", ".php", ".rb",
+            ".cs", ".swift", ".kt", ".m", ".h", ".hpp", ".json", ".yaml", ".yml",
+            ".xml", ".html", ".css", ".scss", ".less", ".sh", ".ps1", ".bat",
+            ".pkl", ".pickle", ".cmd", ".psm1", ".psd1", ".bash", ".csh", ".tcsh",
+            ".ksh", ".zsh", ".fish", ".awk", ".sed", ".lookml", ".lkml", ".view",
+            ".dashboard", ".model", ".sql", ".dbt", ".tds", ".tde", ".twb", ".twbx",
+            ".hyper", ".dax", ".pbix", ".pbit", ".pbids", ".tml", ".worksheet",
+            ".answer", ".atscale", ".cube", ".dimension", ".qvs", ".qvw", ".qvd",
+            ".qvf", ".gooddata", ".ldm", ".maql", ".tf", ".tfvars", ".tfstate",
+            ".hcl", ".nomad", ".bicep", ".arm", ".template", ".cfn", ".pulumi",
+            ".pu", ".ansible", ".playbook", ".k8s", ".kube", ".kubernetes",
+            ".helm", ".chart", ".docker", ".compose", ".vagrant", ".vagrantfile",
+            ".serverless", ".sls", ".sam", ".template.yaml", ".cdk", ".crossplane", ".xrd"
+          ],
+          "description": "List of file extensions to scan for security vulnerabilities"
+        },
+        "secureCodingAssistant.excludedDirectories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules", "dist", "build", "out", "extension", "bin", "obj",
+            ".git", ".svn", ".hg", ".vscode", ".vscode-test",
+            "venv", "env", ".env", "__pycache__"
+          ],
+          "description": "List of directories to exclude from folder scanning"
+        },
+        "secureCodingAssistant.defaultModel": {
+          "type": "string",
+          "default": "gpt-4-turbo-preview",
+          "description": "Default model for code analysis"
+        },
+        "secureCodingAssistant.scanBatchSize": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Number of files to process in parallel during folder scans"
+        },
+        "secureCodingAssistant.enableComprehensiveScanning": {
+          "type": "boolean",
+          "default": true,
+          "description": "Apply all available scan types to all supported file types for maximum coverage"
+        },
+        "secureCodingAssistant.forceLocalScannerForAllFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "Force local scanner to run on all files in addition to LLM scanning (may increase scan time)"
+        },
+        "secureCodingAssistant.realtime.autoShowOutput": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically show output window when real-time scan finds security issues"
+        },
+        "secureCodingAssistant.realtime.scanDelay": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 500,
+          "maximum": 5000,
+          "description": "Delay in milliseconds after typing stops before triggering real-time scan"
+        },
+        "secureCodingAssistant.realtime.enableChangeLogging": {
+          "type": "boolean",
+          "default": false,
+          "description": "Log detailed information about code changes for debugging real-time scanning"
+        },
+        "secureCodingAssistant.realtime.enableIncrementalScanning": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable incremental scanning - only scan changed code with context for faster performance"
+        },
+        "secureCodingAssistant.realtime.scanAllFileTypes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Scan all file types for security issues (when disabled, only scans common programming languages)"
+        },
+        "secureCodingAssistant.realtime.skipVSCodeInternalFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Skip VS Code internal files and output channels from real-time scanning"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "keywords": [],
+  "author": "Femi Oyesanya",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.53.0",
+    "@google/genai": "^1.4.0",
+    "axios": "^1.6.2",
+    "openai": "^4.28.0"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@types/sinon": "^10.0.20",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "sinon": "^17.0.1",
+    "typescript": "^5.3.3"
+  }
+}
