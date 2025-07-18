@@ -29,13 +29,53 @@ cd SecureCodeAssitVScode
 
 ## 3. Install the Included VSIX File (Recommended)
 
-If a prebuilt `.vsix` file (e.g., `secure-coding-assistant-0.0.1.vsix`) is included in the repository or release, you can install it directly without building from source:
+If a prebuilt `.vsix` file (e.g., `secure-coding-assistant-0.0.1.vsix`) is included in the repository or release, you can install it directly without building from source. Follow these detailed steps:
 
-1. Open Visual Studio Code.
-2. Go to the Extensions view (`Ctrl+Shift+X`).
-3. Click the `...` (More Actions) menu in the top-right, then select **Install from VSIX...**
-4. Browse to and select the included `.vsix` file.
-5. Wait for the extension to install.
+### Step 1: Locate the VSIX File
+- After cloning the repository, look for a file ending in `.vsix` (e.g., `secure-coding-assistant-0.0.1.vsix`) in the project root or in the release assets on GitHub.
+- If you do not see a `.vsix` file, you may need to build it yourself (see the next section).
+
+### Step 2: Open Visual Studio Code
+- Launch Visual Studio Code on your computer.
+
+### Step 3: Open the Extensions View
+- Click the Extensions icon in the Activity Bar on the side of the window, or press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (Mac).
+
+### Step 4: Open the More Actions Menu
+- In the Extensions view, click the `...` (More Actions) button in the top-right corner of the panel.
+- From the dropdown menu, select **Install from VSIX...**
+
+### Step 5: Select the VSIX File
+- In the file dialog that appears, navigate to the folder where you cloned the repository or downloaded the `.vsix` file.
+- Select the `.vsix` file (e.g., `secure-coding-assistant-0.0.1.vsix`) and click **Open**.
+
+### Step 6: Wait for Installation
+- VS Code will begin installing the extension. This may take a few moments.
+- Once installation is complete, you should see a notification confirming the extension was installed successfully.
+
+### Step 7: Reload or Restart VS Code (if prompted)
+- Some installations may require you to reload the VS Code window. Click **Reload** if prompted, or close and reopen VS Code.
+
+### Step 8: Verify Installation
+- Go to the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
+- Search for "Secure Coding Assistant" in the list of installed extensions.
+- Ensure the extension appears and is enabled (the toggle should be "on").
+
+### Troubleshooting
+- **Can't find the VSIX file?**
+  - Double-check the repository folder and any release assets on GitHub.
+  - If missing, follow the build instructions to create the VSIX file.
+- **Error: 'VSIX not a valid extension'?**
+  - Make sure you selected the correct `.vsix` file and that it is not corrupted.
+  - Try re-downloading or rebuilding the VSIX.
+- **Permission denied or install fails?**
+  - Ensure you have write permissions to your VS Code extensions directory.
+  - Try running VS Code as administrator (Windows) or with elevated permissions (Mac/Linux).
+- **Extension does not appear after install?**
+  - Reload or restart VS Code.
+  - Check for errors in the VS Code output panel (View > Output).
+
+If you continue to have issues, refer to the [official VS Code documentation on installing extensions from VSIX](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix) or proceed to the build-from-source instructions below.
 
 ---
 
